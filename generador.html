@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <p id="data"></p>
+    <button onclick="generadora()">Generar</button>
+
+    <script>
+        var salida = `
+            use pos1;
+            insert into ventas(id, fecha, hora) values 
+        
+        `
+        /*function generarFecha(){
+            return new Date(
+                new Date(2000, 1, 1).getTime+Math.random() * (new Date().getTime() - new Date(2000, 1, 1).getTime)
+            ).toISOString().split('T')
+        }
+        */
+
+        function generarFecha() {
+            const fechaInicial = new Date(2000, 1, 1).getTime();
+            const fechaActual = new Date().getTime();
+        
+            const fechaAleatoria = new Date(
+                fechaInicial + Math.random() * (fechaActual - fechaInicial)
+            );
+
+            const dia = String(fechaAleatoria.getDate()).padStart(2, '0');
+            const mes = String(fechaAleatoria.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
+            const año = fechaAleatoria.getFullYear();
+
+            return `${dia}/${mes}/${año}`;
+        }
+    
+        function generarHora() {
+            const horaAleatoria = new Date(null);
+            horaAleatoria.setHours(Math.floor(Math.random() * 24));
+            horaAleatoria.setMinutes(Math.floor(Math.random() * 60));
+            horaAleatoria.setSeconds(Math.floor(Math.random() * 60));
+
+            const horas = String(horaAleatoria.getHours()).padStart(2, '0');
+            const minutos = String(horaAleatoria.getMinutes()).padStart(2, '0');
+            const segundos = String(horaAleatoria.getSeconds()).padStart(2, '0');
+
+            return `${horas}:${minutos}:${segundos}`;
+    }
+
+        
+
+
+        function generadora(){
+            for (let i = 1; i < 10000; i++) {
+                salida +=  `</br>(`+Math.floor(Math.random()*(10 - 1 + 1)+1)+`,`+generarFecha()+`,`+generarHora()+`),`
+            }
+            document.getElementById("data").innerHTML=salida
+        }
+        
+        producto = [
+            
+        ]
+
+        function generadorVentaDetalle(){
+            console.log(producto[2])
+        }
+        generadorVentaDetalle()
+    </script>
+</body>
+</html>
